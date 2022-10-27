@@ -19,7 +19,7 @@
 	<%= loginUser.getName() %>さん、ログイン中
 	<a href="/sampleTsubu/Logout">ログアウト</a>
 </p>
-<p><a href="/sampleTsybu/Main">更新</a></p>
+<p><a href="/sampleTsubu/Main">更新</a></p>
 <form action="/sampleTsubu/Main" method="post">
 	<input type="text" name="text">
 	<input type="submit" value="つぶやく">
