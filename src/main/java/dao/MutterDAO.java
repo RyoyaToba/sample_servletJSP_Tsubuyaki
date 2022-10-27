@@ -12,7 +12,7 @@ public class MutterDAO {
 	
 	public List<Mutter> findAll(){
 		
-		String sql = "SELECT * FROM user";
+		String sql = "SELECT * FROM users";
 		
 		List<Mutter> mutterList = new ArrayList<>();
 		
@@ -37,7 +37,7 @@ public class MutterDAO {
 
 	public boolean create(Mutter mutter) {
 		
-		String sql = "INSERT INTO MUTTER (name, text) VALUES(?,?)";
+		String sql = "INSERT INTO users(name, text) VALUES(?,?)";
 		
 		try (Connection con = DBManager.createConnection();
 			PreparedStatement pstmt = con.prepareStatement(sql)){
