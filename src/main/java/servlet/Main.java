@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.GetMutterListLogic;
 import model.Mutter;
 import model.PostMutterLogic;
 import model.User;
@@ -25,15 +26,11 @@ public class Main extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// applicationScopeから、呟きリストを取得
-		ServletContext application = this.getServletContext();
-		List<Mutter> mutterList = (List<Mutter>) application.getAttribute("mutterlist");
+		// 呟きリストを取得して、リクエストスコープに格納
+		GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
+		List<Mutter> mutterList = getMutterListLogic.execute();
+		request.setAttribute("mutterList", mutterList);
 		
-		// 呟きリストがなければ、新たに作成し、applicationScopeに格納
-		if(mutterList == null) {
-			mutterList = new ArrayList<>();
-			application.setAttribute("mutterList", mutterList);
-		}
 		// loginUserがいるか確認
 		HttpSession session = request.getSession();
 		User loginUser = (User) session.getAttribute("loginUser");
@@ -53,23 +50,24 @@ public class Main extends HttpServlet{
 		String text = request.getParameter("text");
 		// 呟きリストの取得
 		if (text != null && text.length() != 0) {
-			ServletContext application = this.getServletContext();
-			List<Mutter> mutterList = (List<Mutter>) application.getAttribute("mutterList");
-		
+			
 			//セッションスコープに保存されたユーザー情報を取得
 			HttpSession session = request.getSession();
 			User loginUser = (User) session.getAttribute("loginUser");
 			
 			//呟きを呟きリストに追加
-			Mutter mutter = new Mutter(1, loginUser.getName(), text);
+			Mutter mutter = new Mutter(loginUser.getName(), text);
 			PostMutterLogic postMutterLogic = new PostMutterLogic();
-			postMutterLogic.execute(mutter, mutterList);
+			postMutterLogic.execute(mutter);
 			
-			application.setAttribute("mutterList", mutterList);
 		} else {
 			//エラーメッセージをスコープに格納
 			request.setAttribute("errorMsg", "呟きが入力されていません");
 		}
+		
+		GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
+		List<Mutter> mutterList = getMutterListLogic.execute();
+		request.setAttribute("mutterList", mutterList);
 		
 		//メイン画面にフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
