@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>Sample呟きアプリへようこそ</h1>
-<form action="/sampleTsubu/Login">
+<form action="/sampleTsubu/Login" method="post">
 	ユーザー名：<input type="text" name="name"><br>
 	パスワード：<input type="password" name="password"><br>
 	<input type="submit" value="ログイン">

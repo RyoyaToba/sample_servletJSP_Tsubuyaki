@@ -18,7 +18,7 @@ public class Login extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
 	// 1 リクエストパラメータを受け取る
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
 		String name = request.getParameter("name");
@@ -27,12 +27,14 @@ public class Login extends HttpServlet{
 		
 		LoginLogic loginLogic = new LoginLogic();
 		boolean isLogin = loginLogic.execute(user);
+		System.out.println("password = " + password + "可否 = " + isLogin);
 		
 		// 2 LoginLogicで戻り値がtrueであれば、呟きページへ遷移する
 		if (isLogin) {
+			System.out.println("きた");
 			HttpSession session = request.getSession();
-			session.setAttribute("user", user);
-		} 
+			session.setAttribute("loginUser", user);
+		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginResult.jsp");
 		dispatcher.forward(request, response);
 	}
