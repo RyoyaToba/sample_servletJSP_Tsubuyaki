@@ -61,7 +61,7 @@ public class Main extends HttpServlet{
 			User loginUser = (User) session.getAttribute("loginUser");
 			
 			//呟きを呟きリストに追加
-			Mutter mutter = new Mutter(loginUser.getName(), text);
+			Mutter mutter = new Mutter(1, loginUser.getName(), text);
 			PostMutterLogic postMutterLogic = new PostMutterLogic();
 			postMutterLogic.execute(mutter, mutterList);
 			
