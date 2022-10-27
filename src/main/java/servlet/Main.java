@@ -66,6 +66,9 @@ public class Main extends HttpServlet{
 			postMutterLogic.execute(mutter, mutterList);
 			
 			application.setAttribute("mutterList", mutterList);
+		} else {
+			//エラーメッセージをスコープに格納
+			request.setAttribute("errorMsg", "呟きが入力されていません");
 		}
 		
 		//メイン画面にフォワード
