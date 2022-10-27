@@ -14,6 +14,7 @@
 <h1>つぶやきメインページ</h1>
 <p>
 <%= loginUser.getName() %>さん、ログイン中
+<a href="/sampleTsubu/Logout">ログアウト</a>
 </p>
 </body>
 </html>
