@@ -1,8 +1,11 @@
-## 掲示板アプリケーション
+## Servlet&JSP Practice 
 
-サーブレット/JSPを使用した掲示板アプリケーション
+This repository is a tweet application based on the book Servlet & JSP.
 
-### ツール
+### tool
 
 * Java17
 * MySQL
+
+## URL
+
